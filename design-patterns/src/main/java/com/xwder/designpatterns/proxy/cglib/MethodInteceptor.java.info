@@ -1,0 +1,20 @@
+package com.xwder.designpatterns.proxy.cglib;
+
+import java.lang.reflect.Method;
+
+/**
+ * @author wande
+ * @version 1.0
+ * @date 2020/04/08
+ */
+class MethodInteceptor implements MethodInterceptor {
+
+    @Override
+    public Object intercept(Object object, Method method, Object[] arg2,
+                            MethodProxy methodProxy) throws Throwable {
+        System.out.println("start to do the work");
+        Object result = methodProxy.invokeSuper(object, arg2);
+        System.out.println("end:do the work");
+        return "haha";
+    }
+}

@@ -1,0 +1,23 @@
+package com.xwder.designpatterns.proxy.cglib;
+
+/**cglib 动态代理
+ * @author wande
+ * @version 1.0
+ * @date 2020/04/08
+ */
+public class TestCglibProxy {
+    public static void main(String[] args) {
+        Target target = new Target();
+        TestCglibProxy testCglibProxy = new TestCglibProxy();
+        Target targetProxy = (Target) testCglibProxy.createProxy(target
+                .getClass());
+        targetProxy.sayHello();
+    }
+
+    public Object createProxy(Class targetClass) {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(targetClass);
+        enhancer.setCallback(new MethodInteceptor());
+        return enhancer.create();
+    }
+}
