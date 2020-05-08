@@ -7,7 +7,6 @@
 
 ## xwder-tech
 
-**介绍**
 
-[xwder-tech](https://github.com/xwder/xwder-tech)  JavaSE,JavaEE
+[xwder-tech](https://github.com/xwder/xwder-tech)  Java学习积累
 
