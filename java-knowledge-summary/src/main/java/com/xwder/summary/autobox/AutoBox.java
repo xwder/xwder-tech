@@ -4,6 +4,9 @@ import org.junit.Test;
 
 /**
  * 自动装箱拆箱
+ * 实现自动拆箱装箱原理：
+ * 自动装箱都是通过包装类的valueOf()方法来实现的.
+ * 自动拆箱都是通过包装类对象的xxxValue()来实现的。
  *
  * @author wande
  * @version 1.0

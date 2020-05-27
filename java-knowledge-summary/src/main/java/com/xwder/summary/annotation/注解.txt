@@ -38,7 +38,7 @@
         5.Annotation类型
         6.以上所有类型的数组
     注意点：
-        ① 只能用public或默认(default)这两个访问权修饰.例如,String value();这里把方法设为defaul默认类型；　
+        ① 只能用public或默认(default)这两个访问权修饰.例如,String value();这里把方法设为 defaul 默认类型；　
         ② 参数成员只能用基本类型byte,short,char,int,long,float,double,boolean八种基本数据类型，
           以及 String,Enum,Class,annotations等数据类型，以及这一些类型的数组。
         ③ 注解元素必须有确定的值，要么指定时给默认值，要么使用时给值。
