@@ -26,6 +26,7 @@
         <module>common-interview-questions</module>
         <module>algorithm</module>
         <module>java-knowledge-summary</module>
+        <module>java-concurrent</module>
     </modules>
 
     <dependencyManagement>

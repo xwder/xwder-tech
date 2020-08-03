@@ -18,10 +18,9 @@ public class Java8StreamTest {
         List<String> strings = Arrays.asList("abc", "", "bc", "efg", "abcd", "", "jkl");
         System.out.println("列表: " + strings);
         long count = getCountEmptyStringUsingJava7(strings);
-
         System.out.println("空字符数量为: " + count);
-        count = getCountLength3UsingJava7(strings);
 
+        count = getCountLength3UsingJava7(strings);
         System.out.println("字符串长度为 3 的数量为: " + count);
 
         // 删除空字符串
@@ -31,13 +30,14 @@ public class Java8StreamTest {
         // 删除空字符串，并使用逗号把它们合并起来
         String mergedString = getMergedStringUsingJava7(strings, ", ");
         System.out.println("合并字符串: " + mergedString);
+
         List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
 
         // 获取列表元素平方数
         List<Integer> squaresList = getSquares(numbers);
         System.out.println("平方数列表: " + squaresList);
-        List<Integer> integers = Arrays.asList(1, 2, 13, 4, 15, 6, 17, 8, 19);
 
+        List<Integer> integers = Arrays.asList(1, 2, 13, 4, 15, 6, 17, 8, 19);
         System.out.println("列表: " + integers);
         System.out.println("列表中最大的数 : " + getMax(integers));
         System.out.println("列表中最小的数 : " + getMin(integers));
@@ -47,14 +47,11 @@ public class Java8StreamTest {
 
         // 输出10个随机数
         Random random = new Random();
-
         for (int i = 0; i < 10; i++) {
             System.out.println(random.nextInt());
         }
 
-        System.out.println();
         System.out.println("================================================");
-        System.out.println();
 
         System.out.println("使用 Java 8: ");
         System.out.println("列表: " + strings);
@@ -68,11 +65,12 @@ public class Java8StreamTest {
         filtered = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
         System.out.println("筛选后的列表: " + filtered);
 
-        mergedString = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.joining(", "));
+        mergedString = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.joining(","));
         System.out.println("合并字符串: " + mergedString);
 
         squaresList = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
-        System.out.println("Squares List: " + squaresList);
+        System.out.println("平方数 Squares List: " + squaresList);
+
         System.out.println("列表: " + integers);
 
         IntSummaryStatistics stats = integers.stream().mapToInt((x) -> x).summaryStatistics();

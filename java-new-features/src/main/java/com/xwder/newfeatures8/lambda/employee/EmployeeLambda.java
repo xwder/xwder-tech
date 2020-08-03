@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: xwder
@@ -21,6 +23,17 @@ public class EmployeeLambda {
             new Employee("郑七", 21, 9000.00)
     );
 
+    @Test
+    public void practice() {
+        // 年龄大于20
+        List<Employee> employeeList = this.employees.stream().filter((employee -> employee.getAge() > 20)).collect(Collectors.toList());
+        // 姓名集合
+        List<String> nameList = employees.stream().map(employee -> employee.getName()).collect(Collectors.toList());
+        // 遍历打印
+        employees.forEach(employee -> System.out.println(employee));
+        employees.forEach(System.out::println);
+    }
+
     /**
      * 过滤员工年龄
      *
@@ -28,6 +41,9 @@ public class EmployeeLambda {
      * @return
      */
     public List<Employee> filterAge(List<Employee> employees) {
+
+        List<Employee> employeeList = employees.stream().filter((employee) -> employee.getAge() > 20).collect(Collectors.toList());
+
         List newEmploys = new ArrayList();
         for (Employee employee : employees) {
             if (employee.getAge() > 20) {
@@ -37,6 +53,7 @@ public class EmployeeLambda {
         return newEmploys;
     }
 
+
     /**
      * 过滤员工工资
      *
@@ -44,6 +61,9 @@ public class EmployeeLambda {
      * @return
      */
     public List<Employee> filterSalary(List<Employee> employees) {
+
+        List<Employee> employeeList = employees.stream().filter(employee -> employee.getSalary() > 7000.00).collect(Collectors.toList());
+
         List newEmploys = new ArrayList();
         for (Employee employee : employees) {
             if (employee.getSalary() > 7000.00) {
