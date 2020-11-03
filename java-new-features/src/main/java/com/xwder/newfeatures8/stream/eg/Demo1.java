@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @date 2018/7/16
  * @since 1.0.0
  */
-public class Demo {
+public class Demo1 {
 
     public static void main(String[] args) {
         //示例集合
@@ -31,7 +31,7 @@ public class Demo {
                 new Dish("龙利鱼", false, 450, Dish.Type.FISH));
 
 
-        //提取低卡路里的菜肴名称
+        //提取低于450卡路里的菜肴名称
         List<String> lowCaloricDishesName = menuList.stream()
                 .filter(m -> m.getCalories() < 450) //卡路里小于450
                 .sorted(Comparator.comparing(Dish::getCalories)) //根据卡路里从小到大排序

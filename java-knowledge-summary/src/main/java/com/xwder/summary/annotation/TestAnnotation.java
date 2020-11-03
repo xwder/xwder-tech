@@ -40,7 +40,7 @@ public class TestAnnotation {
             }
         }
 
-        //获得类里面所有方法的注解信息
+        //获得类里面所有属性的注解信息
         for (Field declaredField : declaredFields) {
             if (declaredField.isAnnotationPresent(ReqValue.class)) {
                 ReqValue reqValue = declaredField.getAnnotation(ReqValue.class);

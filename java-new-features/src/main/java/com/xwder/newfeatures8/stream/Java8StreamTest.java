@@ -19,23 +19,28 @@ public class Java8StreamTest {
         System.out.println("列表: " + strings);
         long count = getCountEmptyStringUsingJava7(strings);
         System.out.println("空字符数量为: " + count);
+        List<String> emptyList = strings.stream().filter(s -> s.isEmpty()).collect(Collectors.toList());
 
         count = getCountLength3UsingJava7(strings);
         System.out.println("字符串长度为 3 的数量为: " + count);
+        List<String> lengthList = strings.stream().filter(s -> s != null && s.length() == 3).collect(Collectors.toList());
 
         // 删除空字符串
         List<String> filtered = deleteEmptyStringsUsingJava7(strings);
         System.out.println("筛选后的列表: " + filtered);
+        List<String> stringList = strings.stream().filter(s -> s != null && s.length() > 0).collect(Collectors.toList());
 
         // 删除空字符串，并使用逗号把它们合并起来
         String mergedString = getMergedStringUsingJava7(strings, ", ");
         System.out.println("合并字符串: " + mergedString);
+        strings.stream().collect(Collectors.joining(","));
 
         List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
 
         // 获取列表元素平方数
         List<Integer> squaresList = getSquares(numbers);
         System.out.println("平方数列表: " + squaresList);
+        numbers.stream().map(i -> i*i).distinct().collect(Collectors.toList());
 
         List<Integer> integers = Arrays.asList(1, 2, 13, 4, 15, 6, 17, 8, 19);
         System.out.println("列表: " + integers);

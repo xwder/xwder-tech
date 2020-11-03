@@ -5,18 +5,27 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * 筛选与切片
+ * 映射、匹配、查找
+ * <p>
+ * 流支持map方法，它会接受一个函数作为参数。
+ * 这个函数会被应用到每个元素上，并将其映射成一个新的元素
+ * （使用映射一词，是因为它和转换类似，但其中的细微差别在于它是“创建一个新版本”而不是去“修改”）。
+ * <p>
+ * 另一个常见的数据处理操作是查看数据集中的某些元素是否匹配一个给定的属性。
+ * Stream API通过allMatch、 anyMatch、 noneMatch、 findFirst和findAny方法提供了这样的工具。
  *
  * @author zifangsky
  * @date 2018/7/16
  * @since 1.0.0
  */
 public class Demo3 {
-
-    //示例集合
+    /**
+     * 示例集合
+     */
     private List<Dish> menuList = Arrays.asList(
             new Dish("猪肉", false, 800, Dish.Type.MEAT),
             new Dish("牛肉", false, 700, Dish.Type.MEAT),
@@ -29,70 +38,85 @@ public class Demo3 {
             new Dish("龙利鱼", false, 450, Dish.Type.FISH));
 
     /**
-     * 使用filter()方法筛选执行元素
+     * 映射：使用flatMap方法，将流扁平化
      * 输出如下：
-     * Dish{name='薯条', vegetarian=true, calories=530, type=OTHER}
-     * Dish{name='米饭', vegetarian=true, calories=350, type=OTHER}
-     * Dish{name='水果', vegetarian=true, calories=120, type=OTHER}
-     * Dish{name='比萨饼', vegetarian=true, calories=550, type=OTHER}
+     * H e l o W r d
      */
     @Test
-    public void testFilter() {
-        List<Dish> vegetarianMenu = menuList.stream()
-                .filter(Dish::isVegetarian) //筛选出素食菜肴
+    public void testFlatMap() {
+        //示例集合
+        List<String> wordList = Arrays.asList("Hello", "World");
+
+        List<String> uniqueCharacters = wordList.stream()
+                //将每个单词转换为由其字母构成的数组
+                .map(word -> word.split(""))
+                //将各个生成流扁平化为单个流
+                .flatMap(Arrays::stream)
+                .distinct()
                 .collect(Collectors.toList());
         //遍历
-        vegetarianMenu.forEach(System.out::println);
+        uniqueCharacters.forEach(s -> System.out.print(s + " "));
     }
 
     /**
-     * 使用distinct()方法筛选各异的元素
+     * 检查是否至少匹配一个元素
      * 输出如下：
-     * 2
-     * 4
+     * 菜单中至少存在一个素菜
      */
     @Test
-    public void testDistinct() {
-        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
-        numbers.stream()
-                .filter(i -> i % 2 == 0) //筛选出偶数
-                .distinct()
-                .forEach(System.out::println);
+    public void testAnyMatch() {
+        if (menuList.stream().anyMatch(Dish::isVegetarian)) {
+            System.out.println("菜单中至少存在一个素菜");
+        }
     }
 
     /**
-     * 使用limit(n)方法，返回一个不超过给定长度的流
+     * 检查是否至少匹配一个元素
      * 输出如下：
-     * 猪肉:800
-     * 牛肉:700
-     * 鸡肉:400
+     * 菜单中所有菜的热量都低于1000卡路里
      */
     @Test
-    public void testLimit() {
-        //提取卡路里超过300的前3个的菜肴
-        List<Dish> threeDishs = menuList.stream()
-                .filter(dish -> dish.getCalories() > 300)
-                .limit(3)
-                .collect(Collectors.toList());
-        threeDishs.forEach(dish -> System.out.println(dish.getName() + ":" + dish.getCalories()));
+    public void testAllMatch() {
+        if (menuList.stream().allMatch(dish -> dish.getCalories() < 1000)) {
+            System.out.println("菜单中所有菜的热量都低于1000卡路里");
+        }
+
+        //或者使用noneMatch
+        if (menuList.stream().noneMatch(dish -> dish.getCalories() >= 1000)) {
+            System.out.println("菜单中所有菜的热量都大于1000卡路里");
+        }
     }
 
     /**
-     * 使用skip(n)方法，返回一个扔掉了前n个元素的流
+     * 使用findAny查找元素：不关心返回的元素是哪个
      * 输出如下：
-     * 薯条:530
-     * 米饭:350
-     * 比萨饼:550
-     * 龙利鱼:450
+     * Dish{name='薯条', vegetarian=true, calories=530, type=OTHER}
      */
     @Test
-    public void testSkip() {
-        //跳过超过300卡路里的头三道菜，并返回剩下的
-        List<Dish> threeDishs = menuList.stream()
-                .filter(dish -> dish.getCalories() > 300)
-                .skip(3)
-                .collect(Collectors.toList());
-        threeDishs.forEach(dish -> System.out.println(dish.getName() + ":" + dish.getCalories()));
+    public void testFindAny() {
+        Optional<Dish> dish = menuList.stream()
+                .filter(Dish::isVegetarian) //过滤出素菜
+                .findAny();
+
+        dish.ifPresent(System.out::println);
+    }
+
+    /**
+     * 使用findFirst查找元素：找到第一个元素在并行上限制更多
+     * 输出如下：
+     * Dish{name='薯条', vegetarian=true, calories=530, type=OTHER}
+     */
+    @Test
+    public void testFindFirst() {
+        Optional<Dish> dish = menuList.stream()
+                .filter(Dish::isVegetarian)
+                .findFirst();
+
+        dish.ifPresent(System.out::println);
+
+        Dish dish1 = dish.get();
+
+        menuList.stream().map(x -> x.getCalories() * 10).collect(Collectors.toList()).forEach(System.out::println);
     }
 
 }

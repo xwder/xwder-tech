@@ -27,9 +27,11 @@ public class AutoBox {
         String s2 = new String("abc");
         System.out.println(s1 == s2);
 
+
         Integer i1 = 127;
         Integer i2 = 127;
         System.out.println(i1 == i2);
+        System.out.println(i1.equals(i2));
 
         Integer i3 = Integer.valueOf(213);
         Integer i4 = Integer.valueOf(213);

@@ -2,85 +2,107 @@ package com.xwder.newfeatures8.stream.eg;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.logging.XMLFormatter;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
- * 归约
+ * 数值流与构建流
+ * <p>
+ * Java 8引入了三个原始类型特化流接口（IntStream、 DoubleStream和LongStream），
+ * 分别用于将流中的元素特化为int、 long和double，从而避免了暗含的装箱成本，这也就是数值流。
  *
  * @author zifangsky
  * @date 2018/7/16
  * @since 1.0.0
  */
 public class Demo5 {
-    //示例集合
-    private List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
-
 
     /**
-     * 使用reduce归约元素
+     * 构建数值流
      * 输出如下：
-     * 10
-     * <p>
-     * reduce接受两个参数：
-     * 一个初始值
-     * 一个Lambda来把两个流元素结合起来并产生一个新值
-     */
-    @Test
-    public void testReduce() {
-        int sum = numbers.parallelStream()
-                .reduce(0, (a, b) -> a + b);
-
-        System.out.println(sum);
-    }
-
-    /**
-     * 使用reduce归约元素，考虑到流中没有任何元素的情况，可以不接受初始值但是会返回一个Optional对象
-     * 输出如下：
-     * 10
-     */
-    @Test
-    public void testReduceOptional() {
-        Optional<Integer> sum = numbers.parallelStream()
-//                .reduce((a, b) -> a + b)
-                .reduce(Integer::sum);
-
-        sum.ifPresent(System.out::println);
-    }
-
-    /**
-     * 使用reduce求最大或最小元素
-     * 输出如下：
-     * 最大值：4
-     * 最小值：1
-     */
-    @Test
-    public void testReduceMax() {
-        Optional<Integer> max = numbers.parallelStream()
-                .reduce(Integer::max);
-        Optional<Integer> min = numbers.parallelStream()
-                .reduce(Integer::min);
-
-        max.ifPresent(m -> System.out.println("最大值：" + m));
-        min.ifPresent(m -> System.out.println("最小值：" + m));
-    }
-
-    /**
-     * 测试同时使用Map和Reduce
-     * 输出如下：
+     * 2
      * 4
+     * 6
+     * 8
+     * 10
+     * 3, 4, 5
+     * 5, 12, 13
+     * 6, 8, 10
+     * 7, 24, 25
+     * 8, 15, 17
      */
     @Test
-    public void testMapReduce() {
-        int count = numbers.parallelStream()
-                .map(m -> 1) //把每个元素映射为1
-                .reduce(0, Integer::sum); //求和
+    public void testIntStream() {
+        //生成偶数
+        IntStream evenNumbers = IntStream.rangeClosed(1, 10)
+                .filter(n -> n % 2 == 0);
 
-        System.out.println(count);
+        evenNumbers.forEach(System.out::println);
 
-        numbers.stream().map(x -> x * 1000).collect(Collectors.toList()).forEach((System.out::println));
+        //生成勾股数
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100).boxed() //外层生成0-100的自然数
+                .flatMap(a -> IntStream.rangeClosed(a, 100) //内层再次生成a-100的自然数
+                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0) //筛选符合勾股定理
+                        .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}) //构建勾股数
+                );
+
+        pythagoreanTriples.limit(5).forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
     }
+
+    /**
+     * 几种构建流的方式
+     * 输出如下：
+     * Java 8
+     * Lambdas
+     * In
+     * Action
+     */
+    @Test
+    public void testCreateStream() {
+        //字符串流
+        Stream<String> stringStream = Stream.of("Java 8 ", "Lambdas ", "In ", "Action");
+        //空流
+        Stream<String> emptyStream = Stream.empty();
+
+        stringStream.forEach(System.out::println);
+    }
+
+    /**
+     * 通过迭代生成流
+     * 输出如下：
+     * 1
+     * 3
+     * 5
+     * 7
+     * 9
+     */
+    @Test
+    public void testIterate() {
+        Stream.<Integer>iterate(1, n -> n + 2).limit(5)
+                .forEach(System.out::println);
+    }
+
+    /**
+     * 通过generate方法生成流，与iterate方法类似，
+     * 但是generate方法不是依次对每个新生成的值应用函数，而是接受一个Supplier<T>类型的Lambda提供新的值
+     * 输出如下：
+     * 0.8761217090781523
+     * 0.2723966370610904
+     * 0.0018463146970718602
+     * 0.6037673908012483
+     * 0.5766660405584716
+     */
+    @Test
+    public void testGenerate() {
+        Stream.<Double>generate(Math::random).limit(5)
+                .forEach(System.out::println);
+
+        Stream.<Double>generate(Math::random).limit(5)
+                .map(x -> x * 10).collect(Collectors.toList()).forEach(System.out::println);
+    }
+
 
 }
