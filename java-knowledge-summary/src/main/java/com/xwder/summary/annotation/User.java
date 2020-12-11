@@ -2,6 +2,7 @@ package com.xwder.summary.annotation;
 
 /**
  * 使用自定义注解
+ * @author xwder
  */
 @ReqMapping(method = ReqMethod.POST, val = "类")
 public class User {

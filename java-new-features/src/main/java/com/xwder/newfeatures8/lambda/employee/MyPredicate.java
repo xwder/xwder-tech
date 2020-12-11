@@ -7,6 +7,7 @@ package com.xwder.newfeatures8.lambda.employee;
  * @Date: 2019/9/16 22:13
  * @Description:
  */
+@FunctionalInterface
 public interface MyPredicate<T> {
 
     /**

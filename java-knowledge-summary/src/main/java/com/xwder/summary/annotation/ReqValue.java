@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 /**
  * 新建自定义注解 @ReqValue
  * Description:
- * Created by gaowei on 2018/1/4.
+ *
+ * @author xwder
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

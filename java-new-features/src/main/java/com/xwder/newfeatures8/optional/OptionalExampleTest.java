@@ -99,7 +99,7 @@ public class OptionalExampleTest {
 
     /**
      * orElse()、orElseGet() 区别
-     * Optional 对象不为空时他们的行为不一致, erElse会行 else方法, orElseGet()不会执行 else 方法
+     * Optional 对象不为空时他们的行为不一致, orElse会行 else方法, orElseGet()不会执行 else 方法
      */
     @Test
     public void orElseAndOrElseGetDiffrent() {

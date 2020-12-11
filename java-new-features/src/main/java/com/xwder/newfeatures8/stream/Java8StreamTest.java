@@ -2,6 +2,7 @@ package com.xwder.newfeatures8.stream;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * lambda 测试
@@ -11,6 +12,9 @@ import java.util.stream.Collectors;
  * @Description:
  */
 public class Java8StreamTest {
+
+    private static final String PREFIX = "ALEX-";
+
     public static void main(String args[]) {
         System.out.println("使用 Java 7: ");
 
@@ -96,6 +100,12 @@ public class Java8StreamTest {
         // 并行处理
         count = strings.parallelStream().filter(string -> string.isEmpty()).count();
         System.out.println("空字符串的数量为: " + count);
+
+        //IntStream.range(0,5).mapToObj(ThreadConstruction::createThread).forEach(Thread::start);
+    }
+
+    private static Thread createThread(final int intName){
+        return new Thread(()->System.out.println(Thread.currentThread().getName()),PREFIX + intName);
     }
 
     private static int getCountEmptyStringUsingJava7(List<String> strings) {

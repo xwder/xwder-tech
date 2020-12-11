@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 
 /**
  * 注解处理器测试
- * Description:
- * Created by gaowei on 2018/1/2.
+ *
+ * @author xwder
  */
 public class TestAnnotation {
 
