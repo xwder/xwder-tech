@@ -50,11 +50,11 @@ public class DateExample {
         // 日期格式化
         // 解析日期
         String dateText = "20180924";
-        LocalDate formatDdate = LocalDate.parse(dateText, DateTimeFormatter.BASIC_ISO_DATE);
-        System.out.println("格式化之后的日期=" + formatDdate);
+        LocalDate localDate = LocalDate.parse(dateText, DateTimeFormatter.BASIC_ISO_DATE);
+        System.out.println("格式化之后的日期=" + localDate);
 
         // 格式化日期
-        dateText = formatDdate.format(DateTimeFormatter.ISO_DATE);
+        dateText = localDate.format(DateTimeFormatter.ISO_DATE);
         System.out.println("dateText=" + dateText);
 
         /**---------- LocalTime ------------**/

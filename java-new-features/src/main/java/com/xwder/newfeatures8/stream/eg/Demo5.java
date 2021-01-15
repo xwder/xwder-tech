@@ -42,11 +42,14 @@ public class Demo5 {
 
         evenNumbers.forEach(System.out::println);
 
-        //生成勾股数
-        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100).boxed() //外层生成0-100的自然数
-                .flatMap(a -> IntStream.rangeClosed(a, 100) //内层再次生成a-100的自然数
-                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0) //筛选符合勾股定理
-                        .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}) //构建勾股数
+        //生成勾股数 //外层生成0-100的自然数
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100).boxed()
+                //内层再次生成a-100的自然数
+                .flatMap(a -> IntStream.rangeClosed(a, 100)
+                        //筛选符合勾股定理
+                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                        //构建勾股数
+                        .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
                 );
 
         pythagoreanTriples.limit(5).forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
