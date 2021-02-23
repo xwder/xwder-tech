@@ -1,0 +1,55 @@
+# 开发环境配置
+server:
+  # 服务端口
+  port: 8080
+  servlet:
+    # 项目contextPath
+    context-path: /
+    session:
+      # 链接多出jsessionid的问题
+      tracking-modes: cookie
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    threads:
+      # Tomcat启动初始化的线程数，默认值30
+      min-spare: 30
+      # tomcat最大线程数，默认为200
+      max: 800
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+
+  application:
+    name: xwder-springboot-example
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+# 如果不使用或者没有默认log4j2.yml 可以指定文件名
+logging:
+#  config: classpath:log4j2-pro.yml
+  config: classpath:log4j2.yml
+
+
+system:
+  # 系统名称
+  systemName: xwder
+  # cookie token
+  sessionTokenName: xwder-token
+  # 对象
+  groups:
+    - name: 创新五部
+      description: 不得了噢
+    - name: 开发一部
+      description: 哦豁
+  # map
+  limitSizeMap:
+    baidu: 1024
+    sogou: 90
+    hauwei: 4096
+    qq: 1024

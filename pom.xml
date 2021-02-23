@@ -30,6 +30,7 @@
         <module>java-knowledge-summary</module>
         <module>java-concurrent</module>
         <module>java-code-example</module>
+        <module>springboot-example</module>
     </modules>
 
     <dependencyManagement>
