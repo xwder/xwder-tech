@@ -100,3 +100,31 @@ SELECT
 FROM
   dual;
 ```
+
+### nvl
+
+```sql
+SELECT
+	nvl(null,0) count
+FROM
+  dual;
+```
+
+### count 加条件
+参考： https://blog.csdn.net/qq_32112175/article/details/89707327
+~~~sql
+SELECT
+        en_station_id ,
+        count( * )  in_count,
+        COUNT( CASE UPLOADSTATUS WHEN 4 THEN 1 ELSE NULL END ) in_success,
+        COUNT( CASE UPLOADSTATUS WHEN 4 THEN NULL ELSE 1 END ) in_fail
+	FROM
+		ZC_WEIGHT_LINE_IN_NEW t 
+	WHERE
+		check_time >= TO_DATE( '2020-10-20 00:00:00', 'yyyy-MM-dd HH24:mi:ss' ) 
+		AND check_time <= TO_DATE( '2020-10-22 23:59:59', 'yyyy-MM-dd HH24:mi:ss' ) 
+	GROUP BY
+		en_station_id
+~~~
+
+

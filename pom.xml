@@ -29,8 +29,8 @@
         <module>algorithm</module>
         <module>java-knowledge-summary</module>
         <module>java-concurrent</module>
-        <module>java-code-example</module>
         <module>springboot-example</module>
+        <module>java-test</module>
     </modules>
 
     <dependencyManagement>
