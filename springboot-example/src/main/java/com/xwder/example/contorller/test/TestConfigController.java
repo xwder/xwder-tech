@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = {"/test/config"})
-public class TestController {
+public class TestConfigController {
 
     @Autowired
     private SystemInfoConfig systemInfoConfig;
