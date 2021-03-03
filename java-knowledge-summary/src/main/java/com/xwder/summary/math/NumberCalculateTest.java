@@ -1,4 +1,4 @@
-package com.xwder.code.math;
+package com.xwder.summary.math;
 
 import org.junit.Test;
 
