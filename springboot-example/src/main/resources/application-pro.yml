@@ -29,6 +29,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+
 
 # 如果不使用或者没有默认log4j2.yml 可以指定文件名
 logging:
@@ -53,3 +57,11 @@ system:
     sogou: 90
     hauwei: 4096
     qq: 1024
+  # 测试 @ConditionalOnProperty 注解
+  testConditionalOnProperty: true
+  #testConditionalOnProperty: false
+
+  # ${}
+  baseDir: /baseDir
+  #region sync
+  syncDir: ${system.baseDir}/sync/receive

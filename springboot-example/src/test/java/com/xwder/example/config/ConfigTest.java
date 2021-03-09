@@ -2,6 +2,7 @@ package com.xwder.example.config;
 
 import com.xwder.example.config.conditional.ConditionBean;
 import com.xwder.example.config.conditional.ConditionConfig;
+import com.xwder.example.config.conditional.ConditionalOnPropertyConfig;
 import com.xwder.example.config.configurationProperties.CloudResourceConfig;
 import com.xwder.example.config.configurationProperties.SystemInfoConfig;
 import com.xwder.example.config.lableimport.CommonJavaBean;
@@ -10,6 +11,7 @@ import com.xwder.example.config.lableimport.MainConfig;
 import com.xwder.example.config.lableimport.ImportSelectorClass;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -68,4 +70,13 @@ public class ConfigTest {
         conditionBean.sayHi();
     }
 
+    /**
+     * 测试 @ConditionalOnProperty  注解
+     */
+    @Test
+    void conditionalOnPropertyTest(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(ConditionalOnPropertyConfig.class);
+        ConditionBean conditional = (ConditionBean) context.getBean("ConditionalOnPropertyConfigBean");
+        System.out.println(conditional);
+    }
 }
