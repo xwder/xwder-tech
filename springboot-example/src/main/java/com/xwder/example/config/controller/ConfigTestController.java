@@ -1,21 +1,21 @@
-package com.xwder.example.contorller.test;
+package com.xwder.example.config.controller;
 
 import com.xwder.example.common.result.CommonResult;
+import com.xwder.example.config.conditional.ConditionBean;
 import com.xwder.example.config.configurationProperties.CloudResourceConfig;
 import com.xwder.example.config.configurationProperties.SystemInfoConfig;
+import com.xwder.example.util.WebSpringBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * config test controller
- *
  * @author xwder
- * @date 2021/2/22 17:26
+ * @date 2021/3/3 15:18
  */
+@RequestMapping(value = "/test/config")
 @RestController
-@RequestMapping(value = {"/test/config"})
-public class TestConfigController {
+public class ConfigTestController {
 
     @Autowired
     private SystemInfoConfig systemInfoConfig;
@@ -31,5 +31,11 @@ public class TestConfigController {
     @RequestMapping(value = "/cloudResourceConfig")
     public Object testCloudResourceConfig() {
         return CommonResult.success(cloudResourceConfig);
+    }
+
+    @RequestMapping("/conditionalOnProperty")
+    public CommonResult testConditionalOnProperty(){
+        ConditionBean conditionalOnPropertyConfigBean = (ConditionBean) WebSpringBeanUtils.getBean("ConditionalOnPropertyConfigBean");
+        return CommonResult.success(conditionalOnPropertyConfigBean);
     }
 }

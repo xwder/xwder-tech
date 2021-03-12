@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 统一异常处理
+ *
  * @author xwder
  */
 @Slf4j
@@ -26,7 +27,8 @@ public class ExceptionAdvice {
      */
     @ExceptionHandler(value = Exception.class)
     public CommonResult defaultException(HttpServletRequest request, Exception e) {
-        log.error("{}", e);
+        String exceptionName = e.getClass().getName();
+        log.error("{}", exceptionName, e);
         return CommonResult.failed(e.getMessage());
 
     }
@@ -42,7 +44,8 @@ public class ExceptionAdvice {
     public CommonResult myException(HttpServletRequest request, MyException e) {
         Integer code = e.getCode();
         String message = e.getMessage();
-        log.error("{}", e);
+        String exceptionName = e.getClass().getName();
+        log.error("{}", exceptionName, e);
         return CommonResult.failed(code, message);
     }
 
@@ -54,7 +57,8 @@ public class ExceptionAdvice {
      */
     @ExceptionHandler(BizException.class)
     public CommonResult handleCustomException(BizException bizException) {
-        log.info("{}", bizException.getMessage());
+        String exceptionName = bizException.getClass().getName();
+        log.info("{}-{}", exceptionName, bizException.getMessage(), bizException);
         return CommonResult.failed(bizException.getCode(), bizException.getMessage());
     }
 
@@ -67,8 +71,7 @@ public class ExceptionAdvice {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public CommonResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error(e.getMessage(), e);
-        CommonResult<Object> commonResult = CommonResult.failed(e.getBindingResult().getFieldError().getDefaultMessage());
-        return commonResult;
+        log.error("{}", MethodArgumentNotValidException.class.getName(), e);
+        return CommonResult.failed(e.getBindingResult().getFieldError().getDefaultMessage());
     }
 }

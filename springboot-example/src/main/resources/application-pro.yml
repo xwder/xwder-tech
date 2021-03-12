@@ -33,6 +33,14 @@ spring:
     ehcache:
       config: classpath:ehcache.xml
 
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/xwder
+      username: root
+      password: root
+      stat-view-servlet:
+        login-username: xwder
+        login-password: xwder
 
 # 如果不使用或者没有默认log4j2.yml 可以指定文件名
 logging:

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 @ConfigurationProperties(prefix = "cloud-resource")
-@PropertySource(value = "config.properties")
+@PropertySource(value = "classpath:config.properties")
 public class CloudResourceConfig {
     private String baiduOcrKey;
     private String baiduOcrSecret;

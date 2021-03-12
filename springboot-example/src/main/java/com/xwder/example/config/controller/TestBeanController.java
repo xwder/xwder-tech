@@ -1,4 +1,4 @@
-package com.xwder.example.contorller.test;
+package com.xwder.example.config.controller;
 
 import com.xwder.example.common.result.CommonResult;
 import com.xwder.example.config.configurationProperties.CloudResourceConfig;
