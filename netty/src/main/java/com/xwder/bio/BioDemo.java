@@ -1,6 +1,9 @@
 package com.xwder.bio;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -14,9 +17,12 @@ import java.util.concurrent.TimeUnit;
  *
  * @Author: xwder
  * @Description:
- * @Date: 2021/3/15 21 54
+ * @Date: 2021/3/15 21:54
  */
 public class BioDemo {
+
+    private static final Logger log = LoggerFactory.getLogger(BioDemo.class);
+
     /**
      * 核心线程池大小
      */
@@ -47,11 +53,10 @@ public class BioDemo {
 
         // 2.创建一个ServerSocket
         ServerSocket serverSocket = new ServerSocket(6666);
-        System.out.println("服务器启动~~");
-
+        log.info("Bio阻塞服务器启动~~~~");
         while (true) {
             final Socket accept = serverSocket.accept();
-            System.out.println("当前线程名称:" + Thread.currentThread().getName() + " 建立一个连接~~");
+            log.info("当前线程名称:{}建立一个连接~~", Thread.currentThread().getName());
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -69,8 +74,7 @@ public class BioDemo {
      */
     public static void handler(Socket socket) {
         try {
-            System.out.println("handler当前线程名称:" + Thread.currentThread().getName() + " handler()~~");
-
+            log.info("handler当前线程名称:{} handler()~~", Thread.currentThread().getName());
             byte[] bytes = new byte[1024];
             InputStream inputStream = socket.getInputStream();
 
@@ -78,16 +82,17 @@ public class BioDemo {
             while (true) {
                 int read = inputStream.read(bytes);
                 if (read != -1) {
-                    System.out.println("handler当前线程名称:" + Thread.currentThread().getName() + "读取到内容:" + new String(bytes, 0, read));
+                    log.info("handler当前线程名称::{}读取到内容:{}", Thread.currentThread().getName(), new String(bytes, 0, read).toString());
                 } else {
                     break;
                 }
             }
         } catch (Exception e) {
+            log.error("读取socket输入流发送错误", e);
             try {
                 socket.close();
             } catch (Exception exception) {
-                e.printStackTrace();
+                log.error("关闭socket发送错误", exception);
             }
         }
 
