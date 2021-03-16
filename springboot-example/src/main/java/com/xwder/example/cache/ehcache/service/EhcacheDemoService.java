@@ -15,6 +15,7 @@ import java.util.Random;
 /**
  * SpEl表达式参考： https://blog.csdn.net/likun557/article/details/107853045 <p>
  * Cacheable 使用详解: https://www.cnblogs.com/coding-one/p/12401630.html <p>
+ * 持久化参考： https://www.cnblogs.com/dw039/p/14121788.html <p>
  *
  * @author xwder
  * @date 2021/3/9 9:02
@@ -58,7 +59,7 @@ public class EhcacheDemoService {
      */
     public EhcacheDto customCacheManagerQuery(EhcacheDto ehcacheDto) {
         EhCacheCacheManager ehCacheCacheManager = WebSpringBeanUtils.getBean(EhCacheCacheManager.class);
-        //获取CacheManager类
+        //获取CacheManager类  可以直接注入 CacheManager cacheManager;
         CacheManager cacheManager = ehCacheCacheManager.getCacheManager();
         //获取Cache
         String key = ehcacheDto.getID() + "_" + ehcacheDto.getName();

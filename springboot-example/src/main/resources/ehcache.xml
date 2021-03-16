@@ -40,10 +40,13 @@
             eternal="false"
             maxElementsInMemory="10000"
             overflowToDisk="false"
-            diskPersistent="false"
+            diskPersistent="true"
             timeToIdleSeconds="1800"
             timeToLiveSeconds="1800"
-            memoryStoreEvictionPolicy="LRU"
-    />
+            memoryStoreEvictionPolicy="FIFO">
+        <BootstrapCacheLoaderFactory
+                class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"
+                properties="bootstrapAsynchronously=true" />
+    </cache>
 
 </ehcache>

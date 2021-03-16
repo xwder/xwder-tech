@@ -1,5 +1,6 @@
 package com.xwder.example.aop;
 
+import com.xwder.example.util.IpUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -83,16 +84,25 @@ public class WebLogAspect {
      */
     @AfterReturning("webLog()")
     public void doAfterReturning(JoinPoint joinPoint) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String requestUrl = request.getRequestURL().toString();
+        String remoteAddr = request.getRemoteAddr();
+        String method = request.getMethod();
+        String requestURI = request.getRequestURI();
+        String requestIp = IpUtils.getIpAddress(request);
+
         // 处理完请求，返回内容
         logger.info("WebLogAspect.doAfterReturning()");
-        logger.info("耗时（毫秒） : " + (System.currentTimeMillis() - startTime.get()));
+        logger.info("请求[requestURI:{}],[method:{}],[requestIp:{}]-处理完毕，[耗时(毫秒):{}]",requestURI,method,requestIp, (System.currentTimeMillis() - startTime.get()));
     }
 
     /**
      * @description 在连接点执行之后执行的通知（异常通知）
      */
     @AfterThrowing("webLog()")
-    public void doAfterThrowing() {
+    public void doAfterThrowing(JoinPoint joinPoint) {
+
         logger.info("WebLogAspect.doAfterThrowing()");
         logger.info("耗时（毫秒） : " + (System.currentTimeMillis() - startTime.get()));
     }

@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * @author xwder
@@ -13,7 +14,7 @@ import javax.validation.constraints.Size;
  */
 @Builder
 @Data
-public class EhcacheDto {
+public class EhcacheDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
