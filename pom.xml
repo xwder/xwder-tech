@@ -8,6 +8,8 @@
     <artifactId>xwder-tech</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>xwder-tech</name>
+    <description>xwder-tech</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -23,14 +25,14 @@
     </properties>
 
     <modules>
-        <module>java-new-features</module>
-        <module>design-patterns</module>
-        <module>common-interview-questions</module>
         <module>algorithm</module>
-        <module>java-knowledge-summary</module>
+        <module>common-interview-questions</module>
+        <module>design-patterns</module>
         <module>java-concurrent</module>
-        <module>springboot-example</module>
+        <module>java-knowledge-summary</module>
+        <module>java-new-features</module>
         <module>netty</module>
+        <module>springboot-example</module>
     </modules>
 
     <dependencyManagement>

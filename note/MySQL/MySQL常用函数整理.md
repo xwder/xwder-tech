@@ -342,3 +342,16 @@ REPLACE(str,from_str,to_str)
 
 更过函数参考：[MySQL函数及用法示例](https://mp.weixin.qq.com/s/-5GqRasUSwDBBU8fxNdRjA)
 
+## count()函数
+
+不要使用 count(列名)或 count(常量)来替代count(\*)，count(\*)是 SQL92 定义的标
+
+准统计行数的语法，跟数据库无关，跟 NULL 和非 NULL 无关。
+
+说明：**count(*)会统计值为 NULL 的行，而 count(列名)不会统计此列为 NULL 值的行。**
+
+## sum()函数 注意NPE异常
+
+当某一列的值全是 NULL 时，count(col)的返回结果为 0，但 sum(col)的返回结果为NULL，因此使用 sum()时需注意 NPE 问题。
+
+可以使用如下方式来避免 sum 的 NPE 问题：SELECT IFNULL(SUM(column), 0) FROM table;
