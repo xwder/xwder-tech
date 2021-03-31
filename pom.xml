@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <hutool.version>4.5.7</hutool.version>
-        <guava.version>28.2-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <junit.version>[4.13.1,)</junit.version>
         <lombok.version>1.18.8</lombok.version>
     </properties>
